@@ -7,8 +7,19 @@ import dotenv from 'dotenv';
 import doctorRoutes from './routes/doctor.js'
 import cookieParser from 'cookie-parser';
 
+
 const app = express();
-app.use(cors());
+// app.use(cors());
+
+const corsOpts = {
+    origin: '*',
+    credentials: true,
+    methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
+    allowedHeaders: ['Content-Type'],
+    exposedHeaders: ['Content-Type']
+};
+app.use(cors(corsOpts));
+
 const port = 5000;
 mongoose.set("strictQuery", false);
 mongoose.connection.on("disconnected", () =>{console.log("Disconnected")})
@@ -16,7 +27,7 @@ mongoose.connection.on("disconnected", () =>{console.log("Disconnected")})
 const connect = async () =>{
     try{
         mongoose.connect(process.env.MONGO)
-        console.log("Conntected to Mongodb")
+        console.log("Connected to Mongodb")
     }catch(err){
         console.log(err)
     }
@@ -42,4 +53,4 @@ app.use((err, req, res, next) =>{
         stack : err.stack,
     })
 })
-app.listen(process.env.PORT || port , ()=>{connect(); console.log("Started")})
+app.listen(process.env.PORT || port , ()=>{connect(); console.log(`Started running om port ${port}`)})

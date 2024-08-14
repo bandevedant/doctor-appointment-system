@@ -1,13 +1,13 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import "firebase/auth";
 import UserIcon from '../../../images/doc/user.svg';
-import firebaseConfig from "../../../Firebase.config";
+import firebaseConfig from "../../../firebase.js";
 import jwt_decode from "jwt-decode";
 
 // Initialize Firebase
-if (firebase.apps.length === 0) {
-    firebase.initializeApp(firebaseConfig);
-}
+// if (firebase.apps.length === 0) {
+//     firebase.initializeApp(firebaseConfig);
+// }
 
 const defaultDisplayName = (name) => {
     let firstName = name;

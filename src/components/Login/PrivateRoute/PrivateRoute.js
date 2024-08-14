@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   // const history = state ? state.from.pathname : '/';
 
   const isLoggedIn = () => {
-    const token = sessionStorage.getItem('access_token');
+    const token = document.cookie.getItem('access_token');
     if (!token) {
       return false;
     }

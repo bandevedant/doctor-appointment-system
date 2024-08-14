@@ -79,8 +79,9 @@ const SignUp = ({ handleResponse }) => {
             password: user.password
         }
         try{
+            console.log(baseUrl, registerInfo)
             // Register With node-server & mongodb
-            const data = await axios.post(`${baseUrl}/auth/register`, registerInfo)
+            await axios.post(`${baseUrl}/auth/register`, registerInfo);
             setLoading(false);
             swal({
                 icon:'success',
@@ -89,6 +90,7 @@ const SignUp = ({ handleResponse }) => {
             })
         }
         catch(err){
+            console.log(err);
             setLoading(false);
             setError(err);
         }

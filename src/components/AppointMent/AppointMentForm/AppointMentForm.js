@@ -9,6 +9,11 @@ import useFetch from '../../hooks/useFetch';
 import { AuthContext } from '../../Context/AuthContext';
 import swal from 'sweetalert';
 
+function getCookie(key) {
+    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+    return b ? b.pop() : "";
+  }
+
 const customStyles = {
     content: {
         top: '50%',
@@ -22,29 +27,74 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 const AppointMentForm = ({modalIsOpen, appointMentDate, closeModal, date }) => {
+    // const baseUrl = process.env.REACT_APP_BASE_URL;
+    // const {user} = useContext(AuthContext);
+    // const { data, loading, error } = useFetch(`${baseUrl}/auth/doctors`);
+    // const {register,handleSubmit, errors} = useForm()
+    // const navigate = useNavigate();
+    // const onSubmit = async(data) =>{
+    //     data.appointmantDate = date;
+    //     data.serviceTitle = appointMentDate;
+    //     data.user_id = user._id;
+    //     try{
+    //         const token = sessionStorage.getItem('access_token');
+    //         data.token=token
+    //         console.log(token)
+    //         await axios.post(`${baseUrl}/auth/addAppointMent`,data)
+    //         closeModal();
+    //         swal({
+    //             icon:'success',
+    //             text:'Successfully Appointment Submited',
+    //             timer: 2000
+    //         })
+    //         navigate("/");
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //     }
+    // }
     const baseUrl = process.env.REACT_APP_BASE_URL;
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { data, loading, error } = useFetch(`${baseUrl}/auth/doctors`);
-    const {register,handleSubmit, errors} = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const onSubmit = async(data) =>{
-        data.appointmantDate = date;
-        data.serviceTitle = appointMentDate;
-        data.user_id = user._id;
-        try{
-            await axios.post(`${baseUrl}/auth/addAppointMent`,data)
+
+    const onSubmit = async (formData) => {
+        formData.appointmantDate = date;
+        formData.serviceTitle = appointMentDate;
+        formData.user_id = user._id;
+
+        try {
+            const access_token = getCookie("access_token")
+            console.log(access_token)
+            // console.log(token)
+
+            // if (!token) {
+            //     throw new Error('No access token found. Please log in again.');
+            // }
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${access_token}`
+                }
+            };
+
+            await axios.post(`${baseUrl}/auth/addAppointMent`, formData, config);
             closeModal();
             swal({
-                icon:'success',
-                text:'Successfully Appointment Submited',
-                timer: 23
-            })
+                icon: 'success',
+                text: 'Successfully Submitted Appointment',
+                timer: 2000
+            });
             navigate("/");
+        } catch (err) {
+            console.error('Error submitting appointment:', err);
+            swal({
+                icon: 'error',
+                text: 'Failed to submit appointment. Please try again.',
+            });
         }
-        catch(err){
-            console.log(err)
-        }
-    }
+    };
     return (
 
         <div>

@@ -26,7 +26,10 @@ const SignIn = ({ handleResponse }) => {
         dispatch({ type: "LOGIN_START" })
         try {
             const res = await axios.post(`${baseUrl}/auth/login`, event);
+            console.log(res)
+            // sessionStorage.setItem()
             dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details })
+
             swal({
                 icon: 'success',
                 text: 'Successfully Sign In',

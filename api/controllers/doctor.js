@@ -102,7 +102,7 @@ export const IsDoctor = async (req, res, next) => {
     const docEmail = req.body.email;
     try {
         const isDoc = await Users.findOne({ email: docEmail })
-        if (isDoc.isDoctor = true) {
+        if (isDoc.isDoctor === true) {
             const { password, ...others } = isDoc._doc;
             res.status(200).json({ ...others })
         }
