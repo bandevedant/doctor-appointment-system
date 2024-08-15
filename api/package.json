@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "20.x"
+    "node": "16.x"
   },
   "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "author": "BandeJi",
+  "author": "ujjal",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
