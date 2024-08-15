@@ -100,6 +100,7 @@ export const AppointmentPatientsList = async (req, res, next) => {
 
 export const IsDoctor = async (req, res, next) => {
     const docEmail = req.body.email;
+    console.log(docEmail);
     try {
         const isDoc = await Users.findOne({ email: docEmail })
         if (isDoc.isDoctor === true) {

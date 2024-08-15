@@ -66,7 +66,7 @@ const AppointMentForm = ({modalIsOpen, appointMentDate, closeModal, date }) => {
 
         try {
             const access_token = getCookie("access_token")
-            console.log(access_token)
+            // console.log(access_token)
             // console.log(token)
 
             // if (!token) {

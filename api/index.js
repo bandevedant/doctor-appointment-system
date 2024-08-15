@@ -11,14 +11,14 @@ import cookieParser from 'cookie-parser';
 const app = express();
 // app.use(cors());
 
-const corsOpts = {
-    origin: '*',
-    credentials: true,
-    methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
-    allowedHeaders: ['Content-Type'],
-    exposedHeaders: ['Content-Type']
-};
-app.use(cors(corsOpts));
+// const corsOpts = {
+//     origin: '*',
+//     credentials: true,
+//     methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
+//     allowedHeaders: ['Content-Type'],
+//     exposedHeaders: ['Content-Type']
+// };
+app.use(cors());
 
 const port = 5000;
 mongoose.set("strictQuery", false);
