@@ -2,36 +2,28 @@ import express from 'express'
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import doctorRoutes from './routes/doctor.js'
 import cookieParser from 'cookie-parser';
+import connectDB from './config/db.js';
 
 
 const app = express();
-// app.use(cors());
 
-// const corsOpts = {
-//     origin: '*',
-//     credentials: true,
-//     methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
-//     allowedHeaders: ['Content-Type'],
-//     exposedHeaders: ['Content-Type']
-// };
 app.use(cors());
 
-const port = 5000;
-mongoose.set("strictQuery", false);
-mongoose.connection.on("disconnected", () =>{console.log("Disconnected")})
+// const port = 5000;
+// mongoose.set("strictQuery", false);
+// mongoose.connection.on("disconnected", () =>{console.log("Disconnected")})
 
-const connect = async () =>{
-    try{
-        mongoose.connect(process.env.MONGO)
-        console.log("Connected to Mongodb")
-    }catch(err){
-        console.log(err)
-    }
-}
+// const connect = async () =>{
+//     try{
+//         mongoose.connect(process.env.MONGO)
+//         console.log("Connected to Mongodb")
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
 app.use(cookieParser())
 dotenv.config();
 app.use(express.json())
@@ -53,4 +45,4 @@ app.use((err, req, res, next) =>{
         stack : err.stack,
     })
 })
-app.listen(process.env.PORT || port , ()=>{connect(); console.log(`Started running om port ${port}`)})
+app.listen(process.env.PORT  , ()=>{connectDB(); console.log(`Started running om port ${process.env.PORT}`)})
